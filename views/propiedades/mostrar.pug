@@ -20,6 +20,10 @@ block contenido
                     h2(class="text-2xl leading-6 font-bold text-blue-300 ") Informacion propiedad
 
                     div(class="grid grid-cols-1 md:grid-cols-3")
+
+                        p(class="text-blue-600 font-bold text-xs") Venta o Renta
+                            span(class="text-white block text-lg")= propiedad.venta_renta
+           
                         p(class="text-blue-600 font-bold text-xs") WC
                             span(class="text-white block text-lg")= propiedad.wc
            

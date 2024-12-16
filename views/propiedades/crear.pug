@@ -67,6 +67,15 @@ block contenido
                                 while n < 5
                                     option(value=n selected= datos.wc ? datos.wc == n ? true : false : null) #{n++}
 
+                        div(class="md:w-1/3") 
+                            label.block.text-sm.uppercase.text-white.mb-3.font-bold(for="venta_renta") Venta o Renta
+                            select#venta_renta.w-full.px-3.py-2.border.border-blue-300.rounded-md.placeholder-blue-400(name="venta_renta")     
+                                option(value="") - Seleccione -
+                                option(value="Venta" selected= datos.venta_renta ? datos.venta_renta === 'Venta' : false) Venta
+                                option(value="Renta" selected= datos.venta_renta ? datos.venta_renta === 'Renta' : false) Renta
+                                option(value="Venta y Renta" selected= datos.venta_renta ? datos.venta_renta === 'Venta y Renta' : false) Venta y Renta
+
+
                     div.border-blue-200.border-t.py-5.space-y-5
                         h3.text-lg.leading-6.font-medium.text-white Ubicación
                         p.text-blue-100 Ubica la propiedad en el mapa                

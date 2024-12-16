@@ -48,7 +48,8 @@ const Propiedad = db.define('propiedades', {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
-    }
+    },
+    venta_renta: DataTypes.STRING,
 
 
 });
