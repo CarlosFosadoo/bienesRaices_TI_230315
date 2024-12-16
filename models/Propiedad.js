@@ -49,8 +49,10 @@ const Propiedad = db.define('propiedades', {
         allowNull: false,
         defaultValue: false
     },
-    venta_renta: DataTypes.STRING,
-
+    operacion: { 
+        type: DataTypes.ENUM('venta', 'renta'),
+        allowNull: false,
+    },
 
 });
 

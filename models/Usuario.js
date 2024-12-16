@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize"
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcrypt'
 import db from '../config/db.js'
 
 
@@ -20,7 +20,10 @@ const Usuario = db.define('usuarios', {
         type: DataTypes.STRING
     },
     confirmado: DataTypes.BOOLEAN,
-    imagen: DataTypes.STRING,
+    foto: {
+        type: DataTypes.STRING,
+        allowNull: true
+    }
 }, {
     hooks: {
         beforeCreate: async function (usuario) {
