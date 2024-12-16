@@ -93,6 +93,7 @@ const registrar = async (req, res) => {
     await check('password').isLength({ min: 6 }).withMessage('El password debe ser de almenos 6 caracteres').run(req)
     await check('repetir_password').equals(req.body.password).withMessage('Los password no coinciden').run(req)
 
+
     let resultado = validationResult(req)
 
 
@@ -111,7 +112,7 @@ const registrar = async (req, res) => {
 
     //Extraer los datos
 
-    const { nombre, email, password } = req.body
+    const { nombre, email, password, imagen=''} = req.body
 
     //verificar que el usuario no este duplicado
     const existeUsuario = await Usuario.findOne({ where: { email } })
@@ -132,23 +133,102 @@ const registrar = async (req, res) => {
         nombre,
         email,
         password,
+        imagen,
         token: generateID()
     })
 
-    //Enviar email de confirmacion
-    emailRegistro({
-        nombre: usuario.nombre,
-        email: usuario.email,
-        token: usuario.token
-    })
 
 
     //Mostrar mensaje de confirmación
-    res.render('templates/message', {
-        pagina: 'Cuenta creada correctamente',
-        mensaje: 'Hemos enviado un email de confirmación, presiona en el enlace'
+    res.render('auth/agregar-imagen', {
+        pagina: `Agregar Imagen: ${usuario.nombre}`,
+        csrfToken: req.csrfToken(),
+        usuario
     })
+    
 }
+
+const agregarImagen = async (req, res) => {
+
+    const { id } = req.params
+    //Validar que la propiedad exista
+
+    const usuario = await Usuario.findByPk(id)
+
+    if (!usuario) {
+        return res.render('auth/registro', {
+            pagina: 'Crear cuenta',
+            csrfToken: req.csrfToken(),
+            errores: [{ msg: 'El usuario no esta Registrado' }],
+            usuario: {
+                nombre: req.body.nombre,
+                email: req.body.email
+            }
+        })
+    }
+ /*
+        //Enviar email de confirmacion
+        emailRegistro({
+            nombre: usuario.nombre,
+            email: usuario.email,
+            token: usuario.token
+        })*/
+    
+}
+
+const almacenarImagen = async (req, res) => {
+    const { id } = req.params;
+
+    // Validar que el usuario exista
+    const usuario = await Usuario.findByPk(id);
+
+    if (!usuario) {
+        return res.render('auth/registro', {
+            pagina: 'Crear cuenta',
+            csrfToken: req.csrfToken(),
+            errores: [{ msg: 'El usuario no está registrado' }],
+            usuario: {
+                nombre: req.body.nombre,
+                email: req.body.email,
+            },
+        });
+    }
+
+    try {
+        console.log(req.file);
+
+        // Almacenar la imagen del usuario
+        usuario.imagen = req.file.filename;
+        await usuario.save();
+
+        // Enviar el correo de confirmación
+        emailRegistro({
+            nombre: usuario.nombre,
+            email: usuario.email,
+            token: usuario.token,
+        });
+
+        // Mostrar la página de mensaje de confirmación
+        return res.render('templates/message', {
+            pagina: 'Cuenta creada correctamente',
+            mensaje: 'Hemos enviado un email de confirmación, presiona en el enlace.',
+        });
+    } catch (error) {
+        console.log(error);
+
+        // Manejar errores en la subida de la imagen
+        return res.render('auth/registro', {
+            pagina: 'Crear cuenta',
+            csrfToken: req.csrfToken(),
+            errores: [{ msg: 'La subida de la imagen falló, intenta de nuevo.' }],
+            usuario: {
+                nombre: req.body.nombre,
+                email: req.body.email,
+            },
+        });
+    }
+};
+
 
 //Funcion que comprueba una cuenta
 const confirmar = async (req, res) => {
@@ -290,6 +370,8 @@ export {
     formularioRegistro,
     autenticar,
     registrar,
+    agregarImagen,
+    almacenarImagen,
     confirmar,
     formularioOlvidePassword,
     resetPassword,

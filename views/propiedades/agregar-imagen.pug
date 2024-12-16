@@ -13,6 +13,7 @@ block contenido
         div(class="bg-blue-900 py-8 px-4 shadow-xl shadow-blue-200 rounded-lg mx-auto max-w-4xl my-10 md:px-10")
             form#imagen(class="dropzone border-dashed border-2 border-blue-300 w-full min:h-96 h-auto rounded flex flex-col justify-center items-center" method="POST" action=`/propiedades/agregar-imagen/${propiedad.id}`)
                 input(type="hidden" name="_csrf" value= csrfToken)
+                input(type="hidden" name="context" value="propiedad") 
                 
             button#publicar(class="mt-5 w-full py-3 bg-white hover:bg-blue-500 hover:text-white text-blue-900 font-bold uppercase rounded-lg cursor-pointer" type="button") Publicar Propiedad   
 
