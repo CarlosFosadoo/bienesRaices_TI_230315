@@ -5,7 +5,9 @@ import usuarioRoutes from './routes/usuarioRoutes.js';
 import propiedadesRoutes from './routes/propiedadesRoutes.js';
 import appRoutes from './routes/appRoutes.js';
 import apiRoutes from './routes/apiRoutes.js';
+import usuariooRoutes from './routes/usuariooRoutes.js'
 import db from './config/db.js';
+import identificarUsuario from './middleware/identificarUsuario.js'
 import session from 'express-session';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt'; // Asegúrate de importar bcrypt
@@ -41,7 +43,7 @@ try {
 } catch (error) {
     console.error('Error al conectar a la BD:', error);
 }
-
+app.use(identificarUsuario);
 // Habilitar pug como motor de plantillas
 app.set('view engine', 'pug');
 app.set('views', './views');
@@ -54,6 +56,8 @@ app.use('/', appRoutes);
 app.use('/auth', usuarioRoutes);
 app.use('/', propiedadesRoutes);
 app.use('/api', apiRoutes);
+app.use('/usuario', usuariooRoutes); 
+
 
 // Ruta para el login
 app.post('/login', async (req, res) => {
@@ -114,7 +118,8 @@ app.get('/usuario', async (req, res) => {
 });
 
 // Arrancar el servidor
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`El servidor está funcionando en el puerto ${port}`);
 });
+
