@@ -174,7 +174,7 @@ const registrar = async (req, res) => {
         token: usuario.token
     })
 
-    res.render('auth/agregar-foto', {
+    res.render('auth/agregar-imagen', {
         pagina: `Agregar Imagen: ${usuario.nombre}`,
         csrfToken: req.csrfToken(),
         usuario

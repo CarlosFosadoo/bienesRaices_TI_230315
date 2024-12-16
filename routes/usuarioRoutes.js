@@ -31,7 +31,7 @@ router.post('/registro', registrar);
 
 // Ruta para subir la foto de perfil
 router.get('/registro/:id', subirFotoPerfil);
-router.post('/registro/:id', upload.single('imagen'), almacenarFotoPerfil);
+router.post('/registro/:id', upload.single('foto'), almacenarFotoPerfil);
 
 // Confirmar cuenta
 router.get('/confirmar/:token', confirmar);
