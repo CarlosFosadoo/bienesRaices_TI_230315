@@ -19,7 +19,8 @@ const Usuario = db.define('usuarios', {
     token: {
         type: DataTypes.STRING
     },
-    confirmado: DataTypes.BOOLEAN
+    confirmado: DataTypes.BOOLEAN,
+    imagen: DataTypes.STRING,
 }, {
     hooks: {
         beforeCreate: async function (usuario) {
