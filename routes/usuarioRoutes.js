@@ -45,3 +45,4 @@ router.post('/olvide-password/:token', nuevoPassword);
  // Ruta para mostrar el perfil del usuario 
 router.get('/:id', mostrarUsuario);
 export default router;
+

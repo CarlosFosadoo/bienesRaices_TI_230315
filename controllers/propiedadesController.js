@@ -31,6 +31,7 @@ const admin = async (req, res) => {
                     { model: Categoria, as: 'categoria' },
                     { model: Precio, as: 'precio' },
                     { model: Mensaje, as: 'mensajes' }
+                    
                 ],
             }),
             Propiedad.count({
@@ -323,32 +324,59 @@ const cambiarEstado = async (req, res) => {
 
 }
 
-
 const mostrarPropiedad = async (req, res) => {
+    const { id } = req.params;
 
-    const { id } = req.params
-
-    //Comprobar que la propieadad exista
-
+    // Comprobar que la propiedad exista e incluir los datos del vendedor
     const propiedad = await Propiedad.findByPk(id, {
         include: [
             { model: Precio, as: 'precio' },
-            { model: Categoria, as: 'categoria' }
+            { model: Categoria, as: 'categoria' },
+            { model: Usuario, as: 'usuario', attributes: ['alias', 'foto'] } 
         ]
-    })
+    });
+    
 
-    if (!propiedad  || !propiedad.publicado) {
-        return res.redirect('/404')
+    if (!propiedad || !propiedad.publicado) {
+        return res.redirect('/404');
     }
+
+    console.log('Datos del vendedor:', propiedad.usuario); // Para depuración
 
     res.render('propiedades/mostrar', {
         propiedad,
         pagina: propiedad.titulo,
         csrfToken: req.csrfToken(),
         usuario: req.usuario,
-        esVendedor: esVendedor(req.usuario?.id, propiedad.usuarioID)
-    })
-}
+        esVendedor: esVendedor(req.usuario?.id, propiedad.usuarioID),
+    });
+    
+
+};
+
+export default mostrarPropiedad;
+
+export const obtenerPropiedades = async (req, res) => {
+    try {
+        const propiedades = await Propiedad.findAll({
+            include: [
+                { model: Categoria, as: 'categoria' },
+                { model: Precio, as: 'precio' },
+                { model: Usuario, as: 'usuario', attributes: ['alias', 'foto'] }
+            ]
+        });
+
+        console.log('Propiedades:', JSON.stringify(propiedades, null, 2)); // Verificar datos del vendedor
+
+        res.render('propiedades/lista', {
+            propiedades,
+            pagina: 'Propiedades'
+        });
+    } catch (error) {
+        console.error(error);
+        res.redirect('/500');
+    }
+};
 
 const enviarMensaje = async (req, res) => {
 
@@ -447,3 +475,5 @@ export {
     verMensajes,
     cambiarEstado
 }
+
+
