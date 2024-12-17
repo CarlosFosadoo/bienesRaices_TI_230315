@@ -24,6 +24,7 @@
   "author": "1.0 - Esperanza Cruz Galindo, Adaptado por: Carlos Isaac Fosado",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "csurf": "^1.11.0",
