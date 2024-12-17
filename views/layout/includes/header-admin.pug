@@ -4,8 +4,13 @@ header.bg-blue-900.p-4
             span.font-normal Raíces
 
         nav(class="my-5 text-sm md:flex md:items-center md:gap-3 font-bold text-white hidden") 
-            a(href="/mis-propiedades") Mis propiedades 
-            a(href="") Mi perfil
+            a.text-blue-500.text-sm(href="javascript:history.back()" class="bg-blue-300 hover:bg-blue-500 text-white py-2 px-6 rounded-lg") Regresar
+            a(href="/" class="bg-winkle hover:bg-blue-500 rounded-lg text-white uppercase font-bold p-2 cursor-pointer text-sm") Inicio
+            a(href="/mis-propiedades" class="bg-blue-300 hover:bg-blue-500 rounded-lg text-white uppercase font-bold p-2 cursor-pointer text-sm") Mis propiedades 
+            if usuario
+               a(href=`/usuario/${usuario.id}` class="bg-blue-400 hover:bg-blue-500 rounded-lg text-white uppercase font-bold p-2 cursor-pointer text-sm") Mi perfil
+            else
+                a(href="/auth/login" class="bg-blue-400 hover:bg-blue-500 rounded-lg text-white uppercase font-bold p-2 cursor-pointer text-sm") Iniciar Sesión
             form(action="/auth/cerrar-sesion" method="POST")  
                 input(type="hidden" name="_csrf" value= csrfToken)
-                input(type="submit" class="bg-white py-2 px-10 rounded-lg text-blue-700 hover:bg-blue-100 shadow-sm shadow-blue-100" value="Cerrar Sesión")    
+                input(type="submit" class="bg-blue-400 hover:bg-blue-500 py-2 px-10 rounded-lg" value="Cerrar Sesión")

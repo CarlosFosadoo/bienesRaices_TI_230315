@@ -63,11 +63,11 @@
             })
                 .addTo(mapa)
                 .bindPopup(`
-                    <p class="text-blue-200 font-bold">${propiedad.categoria.nombre}</p>
+                    <p class="text-celadon-200 font-bold">${propiedad.categoria.nombre}</p>
                     <h1 class="text-xl font-extrabold uppercase my-5">${propiedad.titulo}</h1>
                     <img src="/uploads/${propiedad.imagen}" alt="Imagen de la propiedad ${propiedad.titulo}">
                     <p class="text-gray-600 font-bold">${propiedad.precio.nombre}</p>
-                    <a href="/propiedad/${propiedad.id}" class="bg-blue-200 block p-2 text-center font-bold uppercase">Ver Propiedad</a>
+                    <a href="/propiedad/${propiedad.id}" class="bg-celadon-200 block p-2 text-center font-bold uppercase">Ver Propiedad</a>
                 `);
 
             markers.addLayer(marker);
