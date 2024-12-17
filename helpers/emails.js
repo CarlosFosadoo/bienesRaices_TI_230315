@@ -32,7 +32,7 @@ const emailRegistro = async (datos) => {
           
           <!-- Estilizado del botón "Confirmar cuenta" -->
           <p style="text-align: center; margin-top: 20px;">
-            <a href="${process.env.BACKEND_URL}:${process.env.PORT ?? 3001}/auth/confirmar/${token}" 
+            <a href="${process.env.BACKEND_URL}:${process.env.PORT ?? 3000}/auth/confirmar/${token}" 
                style="display: inline-block; padding: 12px 30px; background-color: #3787D2; color: white; font-weight: 600; font-size: 16px; border-radius: 5px; text-decoration: none; box-shadow: 0 2px 5px rgba(56, 135, 210, 0.3); transition: background-color 0.3s, box-shadow 0.3s;">
               Confirmar cuenta
             </a>
@@ -84,7 +84,7 @@ const emailOlvidePassword = async (datos) => {
           
           <!-- Estilizado del botón "Restablecer password" -->
           <p style="text-align: center; margin-top: 20px;">
-            <a href="${process.env.BACKEND_URL}:${process.env.PORT ?? 3001}/auth/olvide-password/${token}" 
+            <a href="${process.env.BACKEND_URL}:${process.env.PORT ?? 3000}/auth/olvide-password/${token}" 
                style="display: inline-block; padding: 12px 30px; background-color: #3787D2; color: white; font-weight: 600; font-size: 16px; border-radius: 5px; text-decoration: none; box-shadow: 0 2px 5px rgba(56, 135, 210, 0.3); transition: background-color 0.3s, box-shadow 0.3s;">
               Restablecer password
             </a>

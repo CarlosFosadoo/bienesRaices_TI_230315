@@ -3,7 +3,11 @@ import dotenv from 'dotenv'
 dotenv.config({ path: '.env' })
 
 const db = new Sequelize(process.env.BD_NOMBRE, process.env.BD_USER, process.env.BD_PASS, {
+<<<<<<< HEAD
     host: process.env.BD_HOST,
+=======
+    host: process.env.BD_DOMAIN,
+>>>>>>> Actividad8
     port: process.env.BD_PORT,
     dialect: 'mysql',
     define: {
